@@ -1,0 +1,4 @@
+.spinnerWrapper { display:flex; justify-content:center; padding:20px; }
+.spinner { width:42px; height:42px; border:5px solid rgba(0,0,0,0.1); border-top-color:#4CAF50; border-radius:50%; animation:spin 0.9s linear infinite; }
+@media (prefers-color-scheme: dark) { .spinner { border:5px solid rgba(255,255,255,0.1); border-top-color:#66BB6A; } }
+@keyframes spin { to { transform: rotate(360deg); } }

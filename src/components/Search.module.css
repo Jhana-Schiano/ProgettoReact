@@ -1,0 +1,95 @@
+.searchContainer {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 25px;
+  padding: 12px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.searchWrapper:focus-within {
+  border-color: #4CAF50;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.searchIcon {
+  color: #666;
+  margin-right: 12px;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.searchWrapper:focus-within .searchIcon {
+  color: #4CAF50;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  background: transparent;
+  width: 100%;
+}
+
+.searchInput::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .searchWrapper {
+    padding: 10px 16px;
+  }
+  
+  .searchInput {
+    font-size: 14px;
+  }
+  
+  .searchIcon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }
+}
+
+/* Tema scuro */
+@media (prefers-color-scheme: dark) {
+  .searchWrapper {
+    background: #2a2a2a;
+    border: 2px solid #404040;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .searchWrapper:focus-within {
+    border-color: #66BB6A;
+    box-shadow: 0 4px 12px rgba(102, 187, 106, 0.3);
+  }
+  
+  .searchIcon {
+    color: #cccccc;
+  }
+  
+  .searchWrapper:focus-within .searchIcon {
+    color: #66BB6A;
+  }
+  
+  .searchInput {
+    color: #ffffff;
+  }
+  
+  .searchInput::placeholder {
+    color: #999999;
+  }
+}
