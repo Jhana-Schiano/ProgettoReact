@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRecipeDetail } from '../store/searchSlice';
+import { ottieniDettaglioRicetta } from '../store/ricetteSlice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import styles from './DettaglioPage.module.css';
@@ -11,11 +11,11 @@ const DettaglioPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { selectedRecipe, detailLoading, detailError } = useSelector(state => state.search);
+  const { ricettaSelezionata: selectedRecipe, caricamentoDettaglio: detailLoading, erroreDettaglio: detailError } = useSelector(state => state.ricette);
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchRecipeDetail(id));
+      dispatch(ottieniDettaglioRicetta(id));
     }
   }, [id, dispatch]);
 

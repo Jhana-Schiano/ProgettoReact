@@ -3,17 +3,17 @@ import Search from '../components/Search';
 import styles from './MainPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchRecipes } from '../store/searchSlice';
+import { cercaRicette } from '../store/ricetteSlice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { results, loading, error } = useSelector(state => state.search);
+  const { risultatiRicerca: results, caricamentoRicerca: loading, erroreRicerca: error } = useSelector(state => state.ricette);
 
   const handleSearch = (searchTerm) => {
-    dispatch(fetchRecipes({ query: searchTerm }));
+    dispatch(cercaRicette({ query: searchTerm }));
   };
 
   const handleCardClick = (id) => {
