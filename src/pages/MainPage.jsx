@@ -58,10 +58,7 @@ const MainPage = () => {
 export default MainPage;
 
 //TODOS
-//  - crea la pagina di dettaglio 
-//  - converti il prezzo da cent e dollari direttamente nella api e non nella pagina dettaglio
 //  - valuta se usare le instruction o le analized instruction   
-//  - implementa chiamata api per il dettaglio 
 //  - crea e aggiungi la top bar 
 //  - verifica che error message e loading spinner funzionino e vedi se si può fare un file unico jsx e css
 //  - crea un component per indicare che non c'è nessuna ricetta (da sostituire all'attuale messaggio "Non ci sono ricette in tavola al momento")
