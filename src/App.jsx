@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/dettaglio" element={<DettaglioPage />} />
+          <Route path="/ricetta/:id" element={<DettaglioPage />} />
         </Routes>
       </Router>
     </>

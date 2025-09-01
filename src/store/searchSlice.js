@@ -7,7 +7,6 @@ export const fetchRecipes = createAsyncThunk(
   "search/fetchRecipes",
   async ({ query }, { rejectWithValue }) => {
     try {
-      
       if (!query || typeof query !== "string" || query.trim() === "") {
         return rejectWithValue("Query di ricerca non valida");
       }
@@ -20,12 +19,40 @@ export const fetchRecipes = createAsyncThunk(
         addRecipeInformation: "true",
         diet: "vegetarian,vegan",
       };
-      
+
       const response = await axios.get(API_BASE, { params });
       return response.data.results || [];
-    }
-    catch (ex) {
+    } catch (ex) {
       return rejectWithValue(`Errore durante la chiamata: ${ex.message}`);
+    }
+  }
+);
+
+export const fetchRecipeDetail = createAsyncThunk(
+  "search/fetchRecipeDetail",
+  async (recipeId, { rejectWithValue }) => {
+    try {
+      const apiKey = "725ce3911bac43db891bd45e3366acb7";
+      const response = await axios.get(
+        `https://api.spoonacular.com/recipes/${recipeId}/information`,
+        {
+          params: {
+            apiKey,
+            includeNutrition: true,
+          },
+        }
+      );
+      return response.data;
+    } catch (ex) {
+      console.error("Errore fetchRecipeDetail:", ex);
+      if (ex.response) {
+        return rejectWithValue(
+          `Errore HTTP: ${ex.response.status} - ${
+            ex.response.data?.message || "Errore del server"
+          }`
+        );
+      }
+      return rejectWithValue(ex.message || "Errore di rete");
     }
   }
 );
@@ -37,6 +64,10 @@ const searchSlice = createSlice({
     results: [],
     loading: false,
     error: null,
+    // Stato per il dettaglio della ricetta
+    selectedRecipe: null,
+    detailLoading: false,
+    detailError: null,
   },
   reducers: {
     setQuery: (state, action) => {
@@ -60,6 +91,19 @@ const searchSlice = createSlice({
           action.error?.message ||
           "Errore sconosciuto durante la ricerca";
         console.error("Richiesta rifiutata:", action);
+      })
+      .addCase(fetchRecipeDetail.pending, (state) => {
+        state.detailLoading = true;
+        state.detailError = null;
+      })
+      .addCase(fetchRecipeDetail.fulfilled, (state, action) => {
+        state.detailLoading = false;
+        state.selectedRecipe = action.payload;
+      })
+      .addCase(fetchRecipeDetail.rejected, (state, action) => {
+        state.detailLoading = false;
+        state.detailError =
+          action.payload || "Errore nel caricamento del dettaglio";
       });
   },
 });

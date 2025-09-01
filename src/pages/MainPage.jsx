@@ -2,20 +2,22 @@ import RicettaCard from '../components/RicettaCard';
 import Search from '../components/Search';
 import styles from './MainPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchRecipes } from '../store/searchSlice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const { query, results, loading, error } = useSelector(state => state.search);
+  const navigate = useNavigate();
+  const { results, loading, error } = useSelector(state => state.search);
 
   const handleSearch = (searchTerm) => {
     dispatch(fetchRecipes({ query: searchTerm }));
   };
 
   const handleCardClick = (id) => {
-    console.log('Ricetta cliccata id:', id);
+    navigate(`/ricetta/${id}`);
   };
 
   return (
@@ -36,8 +38,8 @@ const MainPage = () => {
           marginTop: '8px'
         }}>
         
-        {!loading && results?.length === 0 && query && (
-          <p style={{ gridColumn: '1 / -1', textAlign: 'center' }}>Nessun risultato trovato.</p>
+        {!loading && results.length === 0 && (
+          <p style={{ gridColumn: '1 / -1', textAlign: 'center' }}>Non ci sono ricette in tavola al momento</p>
         )}
 
         {results.map(r => (
@@ -56,7 +58,10 @@ const MainPage = () => {
 export default MainPage;
 
 //TODOS
-//  - result card deve salvare la key per poi utilizzarla quando chiamerò il dettaglio
+//  - crea la pagina di dettaglio 
+//  - converti il prezzo da cent e dollari direttamente nella api e non nella pagina dettaglio
+//  - valuta se usare le instruction o le analized instruction   
+//  - implementa chiamata api per il dettaglio 
+//  - crea e aggiungi la top bar 
 //  - verifica che error message e loading spinner funzionino e vedi se si può fare un file unico jsx e css
-//  - togli l'utilizzo (a riga 39) della query 
-//  - crea un messaggio personalizzato se la api ritorna null 
+//  - crea un component per indicare che non c'è nessuna ricetta (da sostituire all'attuale messaggio "Non ci sono ricette in tavola al momento")
