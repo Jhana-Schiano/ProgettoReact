@@ -10,8 +10,8 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const { query, results, loading, error } = useSelector(state => state.search);
 
-  const handleSearch = () => {
-    dispatch(fetchRecipes());
+  const handleSearch = (searchTerm) => {
+    dispatch(fetchRecipes({ query: searchTerm }));
   };
 
   const handleCardClick = (id) => {
@@ -57,7 +57,6 @@ export default MainPage;
 
 //TODOS
 //  - result card deve salvare la key per poi utilizzarla quando chiamerò il dettaglio
-//  - fetchRecipes in search slice è completamente da rifare
 //  - verifica che error message e loading spinner funzionino e vedi se si può fare un file unico jsx e css
 //  - togli l'utilizzo (a riga 39) della query 
 //  - crea un messaggio personalizzato se la api ritorna null 

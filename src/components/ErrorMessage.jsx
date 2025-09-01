@@ -1,5 +1,5 @@
 const ErrorMessage = ({ message }) => {
-  if (!message) return null;
+  if (message) console.error(message);
   return (
     <div style={{
       background: '#ffebee',
@@ -9,7 +9,7 @@ const ErrorMessage = ({ message }) => {
       margin: '16px 0',
       border: '1px solid #ef9a9a'
     }}>
-      {message}
+      Errore, risprova più tardi.
     </div>
   );
 };
