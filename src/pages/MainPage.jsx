@@ -1,6 +1,7 @@
 import RicettaCard from '../components/RicettaCard';
 import Search from '../components/Search';
 import TopBar from '../components/TopBar';
+import EmptyState from '../components/EmptyState';
 import styles from './MainPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +36,11 @@ const MainPage = () => {
         <div className={styles.ricetteGrid}>
           
           {!loading && results.length === 0 && !error && (
-            <p style={{ gridColumn: '1 / -1', textAlign: 'center' }}>Non ci sono ricette in tavola al momento</p>
+            <EmptyState 
+              title="Non ci sono ricette in tavola al momento"
+              subtitle="Prova a cercare ricette vegetariane o vegane!"
+              icon="🥗"
+            />
           )}
 
           {results.map(r => (
@@ -56,5 +61,4 @@ export default MainPage;
 
 //TODOS
 //  - valuta se usare le instruction o le analized instruction
-//  - crea un component per indicare che non c'è nessuna ricetta (da sostituire all'attuale messaggio "Non ci sono ricette in tavola al momento")
 //  - controlla l'app anche con il tema chiaro 
