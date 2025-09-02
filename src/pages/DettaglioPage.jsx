@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ottieniDettaglioRicetta } from '../store/ricetteSlice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import TopBar from '../components/TopBar';
 import styles from './DettaglioPage.module.css';
 
 const DettaglioPage = () => {
@@ -28,10 +29,12 @@ const DettaglioPage = () => {
   if (!selectedRecipe) return <div>Ricetta non trovata</div>;
 
   return (
-    <div className={styles.container}>
-      <button onClick={handleBackClick} className={styles.backButton}>
-        ← Torna indietro
-      </button>
+    <>
+      <TopBar />
+      <div className={styles.container}>
+        <button onClick={handleBackClick} className={styles.backButton}>
+          ← Torna indietro
+        </button>
       
       <div className={styles.headerRicetta}>
         <img 
@@ -104,6 +107,7 @@ const DettaglioPage = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

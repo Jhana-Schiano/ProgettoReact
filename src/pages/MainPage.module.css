@@ -1,5 +1,5 @@
 .ricetteContainer {
-  max-width: 800px;
+  max-width: 1280px;
   width: 100%;
   margin: 0 auto;
   padding: 20px;
@@ -11,6 +11,21 @@
   border-radius: 8px;
   /* Tema chiaro - grigio chiaro */
   background-color: #f5f5f5;
+}
+
+.ricetteGrid {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 8px;
+}
+
+/* Su schermi grandi massimo 3 colonne che occupano tutto lo spazio */
+@media (min-width: 1201px) {
+  .ricetteGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* Tema scuro - grigio scuro */

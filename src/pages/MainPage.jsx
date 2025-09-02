@@ -1,5 +1,6 @@
 import RicettaCard from '../components/RicettaCard';
 import Search from '../components/Search';
+import TopBar from '../components/TopBar';
 import styles from './MainPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,37 +22,33 @@ const MainPage = () => {
   };
 
   return (
-    <div className={styles.ricetteContainer}>
-      <Search
-        placeholder="Cerca ricette..."
-        onSearch={handleSearch}
-      />
+    <>
+      <TopBar />
+      <div className={styles.ricetteContainer}>
+        <Search
+          placeholder="Cerca ricette..."
+          onSearch={handleSearch}
+        />
 
-      {error && <ErrorMessage message={error} />}
-      {loading && <LoadingSpinner />}
-      <div
-        style={{
-          width: '100%',
-          display: 'grid',
-          gap: '16px',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          marginTop: '8px'
-        }}>
-        
-        {!loading && results.length === 0 && (
-          <p style={{ gridColumn: '1 / -1', textAlign: 'center' }}>Non ci sono ricette in tavola al momento</p>
-        )}
+        {error && <ErrorMessage message={error} />}
+        {loading && <LoadingSpinner />}
+        <div className={styles.ricetteGrid}>
+          
+          {!loading && results.length === 0 && !error && (
+            <p style={{ gridColumn: '1 / -1', textAlign: 'center' }}>Non ci sono ricette in tavola al momento</p>
+          )}
 
-        {results.map(r => (
-          <RicettaCard
-            key={r.id}
-            img={r.image}
-            titolo={r.title}
-            onClick={() => handleCardClick(r.id)}
-          />
-        ))}
-      </div>
+          {results.map(r => (
+            <RicettaCard
+              key={r.id}
+              img={r.image}
+              titolo={r.title}
+              onClick={() => handleCardClick(r.id)}
+            />
+          ))}
+        </div>
     </div>
+    </>
   );
 };
 
@@ -59,6 +56,5 @@ export default MainPage;
 
 //TODOS
 //  - valuta se usare le instruction o le analized instruction   
-//  - crea e aggiungi la top bar 
 //  - verifica che error message e loading spinner funzionino e vedi se si può fare un file unico jsx e css
 //  - crea un component per indicare che non c'è nessuna ricetta (da sostituire all'attuale messaggio "Non ci sono ricette in tavola al momento")
