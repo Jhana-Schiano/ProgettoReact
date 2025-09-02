@@ -55,6 +55,6 @@ const MainPage = () => {
 export default MainPage;
 
 //TODOS
-//  - valuta se usare le instruction o le analized instruction   
-//  - verifica che error message e loading spinner funzionino e vedi se si può fare un file unico jsx e css
+//  - valuta se usare le instruction o le analized instruction
 //  - crea un component per indicare che non c'è nessuna ricetta (da sostituire all'attuale messaggio "Non ci sono ricette in tavola al momento")
+//  - controlla l'app anche con il tema chiaro 
