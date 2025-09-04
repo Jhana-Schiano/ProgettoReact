@@ -7,9 +7,10 @@ class RicetteAPI {
   /**
    * Cerca ricette vegetariane e vegane
    * @param {string} query - Termine di ricerca
+   * @param {number} offset - Offset per paginazione (default: 0)
    * @returns {Promise<Array>} Lista delle ricette
    */
-  async cercaRicette(query) {
+  async cercaRicette(query, offset = 0) {
     if (!query || typeof query !== "string" || query.trim() === "") {
       throw new Error("Query di ricerca non valida");
     }
@@ -18,6 +19,7 @@ class RicetteAPI {
       apiKey: API_KEY,
       query: query.trim(),
       number: "10",
+      offset: offset.toString(),
       addRecipeInformation: "true",
       diet: "vegetarian,vegan",
     };
@@ -51,7 +53,9 @@ class RicetteAPI {
       });
       return response.data;
     } catch (ex) {
-      throw new Error("Errore durante il caricamento della ricetta: " + ex.message);
+      throw new Error(
+        "Errore durante il caricamento della ricetta: " + ex.message
+      );
     }
   }
 }

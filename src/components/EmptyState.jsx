@@ -1,5 +1,4 @@
 const EmptyState = ({ title = "Non ci sono ricette in tavola al momento", subtitle, icon = "🍽️" }) => {
-  // Rileva se il tema scuro è attivo
   const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   
   const containerStyle = {
@@ -12,11 +11,9 @@ const EmptyState = ({ title = "Non ci sono ricette in tavola al momento", subtit
     textAlign: 'center',
     margin: '2rem 0',
     ...(isDarkMode ? {
-      // Tema scuro
-      color: '#b0b0b0',
+      color: '#e0e0e0',
     } : {
-      // Tema chiaro
-      color: '#6c757d',
+      color: '#495057',
     })
   };
 

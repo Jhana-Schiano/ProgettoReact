@@ -12,10 +12,16 @@ import ErrorMessage from '../components/ErrorMessage';
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { risultatiRicerca: results, caricamentoRicerca: loading, erroreRicerca: error } = useSelector(state => state.ricette);
+  const { risultatiRicerca: results, caricamentoRicerca: loading, erroreRicerca: error, queryRicerca: currentQuery, offsetRicerca: offset, hasMoreResults } = useSelector(state => state.ricette);
 
   const handleSearch = (searchTerm) => {
     dispatch(cercaRicette({ query: searchTerm }));
+  };
+
+  const handleLoadMore = () => {
+    if (currentQuery && !loading) {
+      dispatch(cercaRicette({ query: currentQuery, offset, appendResults: true }));
+    }
   };
 
   const handleCardClick = (id) => {
@@ -39,7 +45,7 @@ const MainPage = () => {
             <EmptyState 
               title="Non ci sono ricette in tavola al momento"
               subtitle="Prova a cercare ricette vegetariane o vegane!"
-              icon="🥗"
+              icon="🥬"
             />
           )}
 
@@ -52,6 +58,28 @@ const MainPage = () => {
             />
           ))}
         </div>
+
+        {/* Pulsante Carica altro */}
+        {results.length > 0 && hasMoreResults && !loading && (
+          <button
+            onClick={handleLoadMore}
+            disabled={loading}
+            style={{
+              margin: '2rem auto',
+              padding: '12px 24px',
+              backgroundColor: loading ? '#ccc' : '#4CAF50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              fontWeight: '500',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              transition: 'background-color 0.2s ease',
+            }}
+          >
+            {loading ? 'Caricamento...' : 'Carica altro'}
+          </button>
+        )}
     </div>
     </>
   );
@@ -59,6 +87,4 @@ const MainPage = () => {
 
 export default MainPage;
 
-//TODOS
-//  - valuta se usare le instruction o le analized instruction
-//  - controlla l'app anche con il tema chiaro 
+//TODO -> commenta tutto il codice 

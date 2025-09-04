@@ -3,9 +3,10 @@ import { ricetteAPI } from "../services/ricetteAPI";
 
 export const cercaRicette = createAsyncThunk(
   "ricette/cercaRicette",
-  async ({ query }, { rejectWithValue }) => {
+  async ({ query, offset = 0, appendResults = false }, { rejectWithValue }) => {
     try {
-      return await ricetteAPI.cercaRicette(query);
+      const results = await ricetteAPI.cercaRicette(query, offset);
+      return { results, appendResults, query, offset };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -31,6 +32,8 @@ const ricetteSlice = createSlice({
     risultatiRicerca: [],
     caricamentoRicerca: false,
     erroreRicerca: null,
+    offsetRicerca: 0,
+    hasMoreResults: true,
 
     // Stato per il dettaglio
     ricettaSelezionata: null,
@@ -46,11 +49,29 @@ const ricetteSlice = createSlice({
       })
       .addCase(cercaRicette.fulfilled, (state, action) => {
         state.caricamentoRicerca = false;
-        state.risultatiRicerca = action.payload;
+        const { results, appendResults, query, offset } = action.payload;
+
+        if (appendResults) {
+          // Carica altro: aggiungi ai risultati esistenti
+          state.risultatiRicerca = [...state.risultatiRicerca, ...results];
+        } else {
+          // Nuova ricerca: sostituisci i risultati
+          state.risultatiRicerca = results;
+          state.queryRicerca = query;
+        }
+
+        state.offsetRicerca = offset + 10;
+        state.hasMoreResults = results.length === 10;
       })
       .addCase(cercaRicette.rejected, (state, action) => {
         state.caricamentoRicerca = false;
         state.erroreRicerca = action.payload || "Errore durante la ricerca";
+
+        // Solo per nuove ricerche, non per carica altro
+        if (!action.meta.arg.appendResults) {
+          state.offsetRicerca = 0;
+          state.hasMoreResults = false;
+        }
       })
 
       // Gestione dettaglio ricetta
