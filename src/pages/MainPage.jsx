@@ -74,18 +74,7 @@ const MainPage = () => {
           <button
             onClick={handleLoadMore}
             disabled={loading}
-            style={{
-              margin: '2rem auto',
-              padding: '12px 24px',
-              backgroundColor: loading ? '#ccc' : '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '1rem',
-              fontWeight: '500',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'background-color 0.2s ease',
-            }}
+            style={{ margin: '2rem auto', display: 'block' }}
           >
             {loading ? 'Caricamento...' : 'Carica altro'}
           </button>
