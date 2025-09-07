@@ -9,21 +9,33 @@ import { cercaRicette } from '../store/ricetteSlice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 
+/**
+ * Pagina principale per cercare e visualizzare le ricette
+ */
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { risultatiRicerca: results, caricamentoRicerca: loading, erroreRicerca: error, queryRicerca: currentQuery, offsetRicerca: offset, hasMoreResults } = useSelector(state => state.ricette);
 
+  /**
+   * Gestisce la ricerca di nuove ricette
+   */
   const handleSearch = (searchTerm) => {
     dispatch(cercaRicette({ query: searchTerm }));
   };
 
+  /**
+   * Carica più ricette per la ricerca corrente
+   */
   const handleLoadMore = () => {
     if (currentQuery && !loading) {
       dispatch(cercaRicette({ query: currentQuery, offset, appendResults: true }));
     }
   };
 
+  /**
+   * Gestiisce il click su una card di ricetta navigando alla pagina di dettaglio
+   */
   const handleCardClick = (id) => {
     navigate(`/ricetta/${id}`);
   };
@@ -45,7 +57,6 @@ const MainPage = () => {
             <EmptyState 
               title="Non ci sono ricette in tavola al momento"
               subtitle="Prova a cercare ricette vegetariane o vegane!"
-              icon="🥬"
             />
           )}
 
@@ -58,8 +69,7 @@ const MainPage = () => {
             />
           ))}
         </div>
-
-        {/* Pulsante Carica altro */}
+      
         {results.length > 0 && hasMoreResults && !loading && (
           <button
             onClick={handleLoadMore}
@@ -86,5 +96,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-
-//TODO -> commenta tutto il codice 

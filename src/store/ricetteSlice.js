@@ -1,29 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ricetteAPI } from "../services/ricetteAPI";
 
-export const cercaRicette = createAsyncThunk(
-  "ricette/cercaRicette",
-  async ({ query, offset = 0, appendResults = false }, { rejectWithValue }) => {
-    try {
-      const results = await ricetteAPI.cercaRicette(query, offset);
-      return { results, appendResults, query, offset };
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const ottieniDettaglioRicetta = createAsyncThunk(
-  "ricette/ottieniDettaglioRicetta",
-  async (ricettaId, { rejectWithValue }) => {
-    try {
-      return await ricetteAPI.ottieniDettaglioRicetta(ricettaId);
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
+/**
+ * Slice Redux per la gestione dello stato delle ricette e della loro ricerca
+ */
 const ricetteSlice = createSlice({
   name: "ricette",
   initialState: {
@@ -90,5 +70,34 @@ const ricetteSlice = createSlice({
       });
   },
 });
+
+/**
+ * Metodo per cercare ricette con supporto alla paginazione
+ */
+export const cercaRicette = createAsyncThunk(
+  "ricette/cercaRicette",
+  async ({ query, offset = 0, appendResults = false }, { rejectWithValue }) => {
+    try {
+      const results = await ricetteAPI.cercaRicette(query, offset);
+      return { results, appendResults, query, offset };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/**
+ * Metodo per ottenere il dettaglio di una ricetta specifica
+ */
+export const ottieniDettaglioRicetta = createAsyncThunk(
+  "ricette/ottieniDettaglioRicetta",
+  async (ricettaId, { rejectWithValue }) => {
+    try {
+      return await ricetteAPI.ottieniDettaglioRicetta(ricettaId);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export default ricetteSlice.reducer;

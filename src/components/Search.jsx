@@ -1,5 +1,8 @@
 import styles from './Search.module.css';
 
+/**
+ * Barra di ricerca con icona per la ricerca delle ricette
+ */
 const Search = ({ placeholder = "Cerca ricette...", onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();

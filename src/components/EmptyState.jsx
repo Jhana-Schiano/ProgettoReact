@@ -1,4 +1,16 @@
-const EmptyState = ({ title = "Non ci sono ricette in tavola al momento", subtitle, icon = "🍽️" }) => {
+/**
+ * Mostra un messaggio quando non ci sono risultati o la pagina è vuota
+ * 
+ * @param {string} title - Titolo principale del messaggio (opzionale)
+ * @param {string} subtitle - Sottotitolo descrittivo (opzionale) 
+  * @param {string} icon - Icona da visualizzare (opzionale, default: 🥬)
+ */
+const EmptyState = ({ 
+  title = "Non ci sono ricette in tavola al momento", 
+  subtitle, 
+  icon = "🥬"
+}) => {
+  // Rileva se l'utente sta usando il tema scuro del sistema
   const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   
   const containerStyle = {

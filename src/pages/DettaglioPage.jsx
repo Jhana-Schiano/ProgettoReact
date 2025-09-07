@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +7,9 @@ import ErrorMessage from '../components/ErrorMessage';
 import TopBar from '../components/TopBar';
 import styles from './DettaglioPage.module.css';
 
+/**
+ * Pagina di dettaglio di una ricetta con informazioni complete: immagine, titolo e info generali nel header; descrizione, ingredienti, preparazione scritta e passaggi numerati
+ */
 const DettaglioPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,6 +22,9 @@ const DettaglioPage = () => {
     }
   }, [id, dispatch]);
 
+  /**
+   * Gestisce il click del pulsante indietro navigando alla pagina precedente
+   */
   const handleBackClick = () => {
     navigate(-1);
   };

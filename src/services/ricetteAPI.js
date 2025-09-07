@@ -60,5 +60,4 @@ class RicetteAPI {
   }
 }
 
-// Esporto un'istanza singleton
 export const ricetteAPI = new RicetteAPI();

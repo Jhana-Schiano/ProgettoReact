@@ -1,5 +1,8 @@
 import styles from './TopBar.module.css';
 
+/**
+ * Header dell'applicazione con nome del sito GreenGourmet e slogan
+ */
 const TopBar = () => {
   return (
     <header className={styles.topBar}>

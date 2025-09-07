@@ -1,5 +1,8 @@
 import styles from './RicettaCard.module.css';
 
+/**
+ * Mostra una card cliccabile per una ricetta con immagine e titolo
+ */
 const RicettaCard = ({ img, titolo, onClick }) => {
   return (
     <div className={styles.card} onClick={onClick}>

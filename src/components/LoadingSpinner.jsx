@@ -1,3 +1,6 @@
+/**
+ * Mostra un indicatore di caricamento
+ */
 const LoadingSpinner = () => {
 
   if (!document.querySelector('#spinner-keyframes')) {

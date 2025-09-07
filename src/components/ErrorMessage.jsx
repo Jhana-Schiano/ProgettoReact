@@ -1,3 +1,8 @@
+/**
+ * Mostra un messaggio di errore stilizzato
+ * 
+ * @param {string} message - Messaggio di errore da loggare nella console (opzionale)
+ */
 const ErrorMessage = ({ message }) => {
   if (message) console.error(message);
   
